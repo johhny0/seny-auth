@@ -1,0 +1,15 @@
+version: "3.7"
+
+services:
+  seny-auth:
+    container_name: seny-auth
+    build:
+      context: .
+      target: build
+    volumes:
+    - ./:/app
+    - /app/node_modules
+    ports:
+    - 3002:3002
+    command: npm run dev
+   
