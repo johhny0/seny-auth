@@ -1,5 +1,3 @@
-version: "3.7"
-
 services:
   seny-auth:
     container_name: seny-auth
@@ -7,9 +5,16 @@ services:
       context: .
       target: build
     volumes:
-    - ./:/app
-    - /app/node_modules
+      - ./:/app
+      - /app/node_modules
     ports:
-    - 3002:3002
+      - 3002:3002
     command: npm run dev
-   
+    networks:
+      - seny-network-auth
+
+networks:
+  seny-network-auth:
+    driver: bridge
+    name: seny-network
+    external: true

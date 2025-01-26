@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "npx nodemon --exec ts-node src/index.ts",
+    "build": "tsc -p .",
     "migrate": "npx typeorm-ts-node-commonjs migration:run -d src/data-source",
     "create": "typeorm migration:create ./src/migration/learningMigration",
     "generate": "typeorm migration:generate -n PostRefactoring",
