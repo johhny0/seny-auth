@@ -1,30 +1,42 @@
-import { MigrationInterface, QueryRunner, Table } from "typeorm"
+import { MigrationInterface, QueryRunner, Table, TableColumn } from "typeorm"
 
 export class CreateUserTable1679170799778 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(new Table({
-            name: "Auth",
+            name: "User",
+            columns: [
+                new TableColumn({
+                    name: "Id",
+                    type: "VARCHAR",
+                    length: "36",
+                    isPrimary: true,
+                    isGenerated: true,
+                    generationStrategy: "uuid"
+                }),
+                new TableColumn({
+                    name: "Email",
+                    type: "VARCHAR",
+                    length: "40"
+                }),
+                new TableColumn({
+                    name: "Name",
+                    type: "VARCHAR",
+                    length: "40"
+                }),
+            ],
+        }), true);
 
-        }))
-        await queryRunner.query(`
-        CREATE TABLE Auth (
-            Id VARCHAR(40) PRIMARY KEY,
-            Email VARCHAR(255) NOT NULL,
-            Name VARCHAR(255) NOT NULL,
-            PicturePath VARCHAR(2083) NULL,
-            UserId VARCHAR(40)
-        )`)
+        await queryRunner.query(`INSERT INTO User 
+                (Id, Email, Name) 
+            VALUES 
+                ('0e9de555-1ee3-43bf-ba14-dd48e84c8aad', 'admin@seny.io', 'Admin')`);
 
-        await queryRunner.query(`INSERT INTO Auth 
-        (Login, Password) 
-        VALUES 
-        (1, admin, )`)
-
+        
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        queryRunner.query(`DROP TABLE Auth`);
+        queryRunner.query(`DROP TABLE User`);
     }
 
 }

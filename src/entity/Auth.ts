@@ -14,8 +14,4 @@ export class Auth {
 
     @Column()
     email?: string;
-
-    @Column()
-    profilePicture?: string;
- 
 }
